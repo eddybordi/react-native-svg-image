@@ -6,7 +6,7 @@ export default class SVGImage extends PureComponent {
   static propTypes = {
     style: PropTypes.any,
     source: PropTypes.shape({
-      uri: PropTypes.string,
+      data: PropTypes.string,
     }).isRequired,
     showWebviewLoader: PropTypes.bool,
     height: PropTypes.number,
@@ -14,7 +14,7 @@ export default class SVGImage extends PureComponent {
 
   static defaultProps = {
     style: {},
-    source: { uri: '' },
+    source: { data: '' },
     showWebviewLoader: Platform.OS === 'android',
     height: null,
   };
@@ -26,7 +26,7 @@ export default class SVGImage extends PureComponent {
   );
 
   render() {
-    const { showWebviewLoader, source: { uri }, style, ...restOfProps } = this.props;
+    const { showWebviewLoader, source: { data }, style, ...restOfProps } = this.props;
     const { height, width } = StyleSheet.flatten(style || []);
 
     const html = `
@@ -50,7 +50,7 @@ export default class SVGImage extends PureComponent {
         </head>
         <body>
           <div>
-            <img src="${uri}" align="middle" />
+            <img src="data:image/svg+xml;utf8,${data}" align="middle" />
           </div>
         </body>
       </html>
